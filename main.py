@@ -32,7 +32,7 @@ def mdif(s1, s2):
 
 
 
-N = 11
+N = 6
 h = 1 / (N-1)
 a = 1
 b = 1.2
@@ -40,13 +40,13 @@ d = 1/10**6
 w = 1.1
 S = [[(np.sign(i * (j - i) * (N - j - 1))) for i in range(j + 1)] for j in range(N)]
 F = [[0.2*math.exp(h*i)*math.cos(h*j) for i in range(j + 1)] for j in range(N)]
+Fi = [[math.exp(h*i)*math.cos(h*j) for i in range(j + 1)] for j in range(N)]
 for j in range(0, N-1):
     S[j][0] = math.cos(h*j)
     S[j][j] = math.exp(h*j)*math.cos(h*j)
 for i in range(0, N):
     S[N-1][i] = math.exp(h * i) * math.cos(h * (N-1))
 
-print(S)
 k = 1
 FM = copy.deepcopy(S)
 SM = funca(FM)
@@ -54,6 +54,5 @@ while norm(mdif(SM, FM)) > d:
     k += 1
     SM, FM = funca(SM), SM
 
-print(SM)
 print(k)
-
+print(norm(mdif(Fi,SM)))
