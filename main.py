@@ -7,8 +7,9 @@ def funca(s):
     n = copy.deepcopy(s)
     for j in range(1, N - 1):
         for i in range(1, j):
-            n[j][i] = (1-w)*s[j][i]+(w/(2*a*b))*(a*n[j-1][i]+b*n[j][i-1]+a*s[j+1][i]+b*s[j][i+1]+(h**2)*F[j][i])
+            n[j][i] = (1-w)*s[j][i]+(w/(2*(a+b)))*(a*n[j-1][i]+b*n[j][i-1]+a*s[j+1][i]+b*s[j][i+1]+(h**2)*F[j][i])
     return n
+
 
 def prod(s1, s2):
     prsum = 0
@@ -21,6 +22,7 @@ def prod(s1, s2):
 def norm(s):
     return math.sqrt(prod(s, s))
 
+
 def mdif(s1, s2):
     n = copy.deepcopy(s1)
     for j in range(N):
@@ -30,7 +32,7 @@ def mdif(s1, s2):
 
 
 
-N = 41
+N = 11
 h = 1 / (N-1)
 a = 1
 b = 1.2
@@ -44,15 +46,14 @@ for j in range(0, N-1):
 for i in range(0, N):
     S[N-1][i] = math.exp(h * i) * math.cos(h * (N-1))
 
-print(norm(S))
+print(S)
 k = 1
 FM = copy.deepcopy(S)
 SM = funca(FM)
-while norm(mdif(SM,FM))>d:
+while norm(mdif(SM, FM)) > d:
     k += 1
-    SM,FM = funca(SM),SM
+    SM, FM = funca(SM), SM
 
-print(norm(SM))
-print(norm(FM))
-print(k) 
-print(norm(mdif(SM,FM)))
+print(SM)
+print(k)
+
